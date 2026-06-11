@@ -1,17 +1,24 @@
 ---
-
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Hi there, you're welcome!</title>
-	</head>
-	<body>
-		<h1>Entry stuff</h1>
-	</body>
-</html>
+<BaseLayout title="Example" description="Example example example.">
+	<p class="eyebrow">Example / Example</p>
+	<h1>Example example example.</h1>
+	<p class="intro">Example example example. Example example example.</p>
+
+	<section class="cards" aria-label="Examples">
+		<article class="card">
+			<h2>01 / Example</h2>
+			<p>Example example example. Example example example.</p>
+		</article>
+		<article class="card">
+			<h2>02 / Example</h2>
+			<p>Example example example. Example example example.</p>
+		</article>
+		<article class="card">
+			<h2>03 / Example</h2>
+			<p>Example example example. Example example example.</p>
+		</article>
+	</section>
+</BaseLayout>

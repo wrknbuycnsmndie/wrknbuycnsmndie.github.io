@@ -1,0 +1,55 @@
+---
+import '../styles/global.css';
+
+interface Props {
+	title: string;
+	description: string;
+}
+
+const { title, description } = Astro.props;
+const currentPath = Astro.url.pathname;
+
+const links = [
+	{ href: '/', label: 'Example' },
+	{ href: '/about/', label: 'Example' },
+	{ href: '/notes/', label: 'Example' },
+];
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="description" content={description} />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title} | Example</title>
+	</head>
+	<body>
+		<header class="site-header">
+			<a class="logo" href="/">EXAMPLE</a>
+			<nav aria-label="Main navigation">
+				{
+					links.map((link) => (
+						<a
+							href={link.href}
+							aria-current={currentPath === link.href ? 'page' : undefined}
+						>
+							{link.label}
+						</a>
+					))
+				}
+			</nav>
+		</header>
+
+		<main>
+			<slot />
+		</main>
+
+		<footer>
+			<p>Example example example.</p>
+			<a href="https://github.com/wrknbuycnsmndie">Example</a>
+		</footer>
+	</body>
+</html>
