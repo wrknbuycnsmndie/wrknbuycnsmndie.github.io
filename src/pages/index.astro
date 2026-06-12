@@ -1,24 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import HomeHero from '../components/HomeHero.astro';
+import HomeSections from '../components/HomeSections.astro';
 ---
 
-<BaseLayout title="Example" description="Example example example.">
-	<p class="eyebrow">Example / Example</p>
-	<h1>Just checking jekyll builds, sorry dudes from Github.</h1>
-	<p class="intro">Example example example. Example example example.</p>
-
-	<section class="cards" aria-label="Examples">
-		<article class="card">
-			<h2>01 / Example</h2>
-			<p>Example example example. Example example example.</p>
-		</article>
-		<article class="card">
-			<h2>02 / Example</h2>
-			<p>Example example example. Example example example.</p>
-		</article>
-		<article class="card">
-			<h2>03 / Example</h2>
-			<p>Example example example. Example example example.</p>
-		</article>
-	</section>
+<BaseLayout title="Home" description="Personal website of wrknbuycnsmndie.">
+	<HomeHero />
+	<HomeSections />
 </BaseLayout>

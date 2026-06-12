@@ -1,0 +1,93 @@
+<div class="home-sections">
+	<section id="my-projects" class="home-section">
+		<p class="section-index">01</p>
+		<h2>My projects</h2>
+		<p class="empty-state">My works will appear here.</p>
+	</section>
+
+	<section id="my-resume" class="home-section">
+		<p class="section-index">02</p>
+		<h2>My resume</h2>
+		<p class="empty-state">Resume is also coming soon.</p>
+	</section>
+
+	<section id="my-posts" class="home-section">
+		<p class="section-index">03</p>
+		<h2>My posts</h2>
+		<p class="empty-state">Posts into blog will appear here too.</p>
+	</section>
+</div>
+
+<style>
+	.home-sections {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		margin-top: var(--space-18);
+		border-top: var(--border-width) solid var(--color-border-strong);
+		border-bottom: var(--border-width) solid var(--color-border-strong);
+		animation: enter var(--duration-slow) var(--ease-out) both;
+	}
+
+	.home-section {
+		display: flex;
+		min-height: 16rem;
+		padding: var(--space-5);
+		flex-direction: column;
+	}
+
+	.home-section + .home-section {
+		border-left: var(--border-width) solid var(--color-border-strong);
+	}
+
+	.section-index,
+	.empty-state {
+		margin: 0;
+		color: var(--color-text-muted);
+		font-size: var(--font-size-sm);
+	}
+
+	.section-index {
+		font-family: var(--font-family-code);
+	}
+
+	h2 {
+		margin: var(--space-4) 0 0;
+	}
+
+	.empty-state {
+		margin-top: auto;
+	}
+
+	@keyframes enter {
+		from {
+			opacity: 0;
+			transform: translateY(1.125rem);
+		}
+
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.home-sections {
+			animation: none;
+		}
+	}
+
+	@media (max-width: 50rem) {
+		.home-sections {
+			grid-template-columns: 1fr;
+		}
+
+		.home-section {
+			min-height: 12rem;
+		}
+
+		.home-section + .home-section {
+			border-top: var(--border-width) solid var(--color-border-strong);
+			border-left: 0;
+		}
+	}
+</style>

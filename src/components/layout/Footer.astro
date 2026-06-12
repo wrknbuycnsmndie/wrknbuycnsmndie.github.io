@@ -1,0 +1,31 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+	<p>{year} &middot; Made by <a href="https://github.com/wrknbuycnsmndie">@wrknbuycnsmndie</a></p>
+</footer>
+
+<style>
+	.site-footer {
+		width: 100%;
+		padding: var(--space-5) var(--page-gutter);
+		border-top: var(--border-width) solid var(--color-border);
+		text-align: center;
+	}
+
+	p {
+		margin: 0;
+		color: var(--color-text-muted);
+		font-size: var(--font-size-sm);
+	}
+
+	a {
+		color: var(--color-text);
+		transition: color var(--duration-fast);
+	}
+
+	a:hover {
+		color: var(--color-secondary);
+	}
+</style>
