@@ -50,4 +50,25 @@ const links = [
 		align-items: center;
 		gap: var(--space-4);
 	}
+
+	@media (max-width: 37.5rem) {
+		.site-header {
+			gap: var(--space-2);
+			padding-block: var(--space-3);
+		}
+
+		.header-actions {
+			gap: var(--space-2);
+		}
+	}
+
+	@media (max-width: 23.75rem) {
+		.site-name {
+			font-size: 0.875rem;
+		}
+
+		.header-actions {
+			gap: var(--space-1);
+		}
+	}
 </style>

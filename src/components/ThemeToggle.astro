@@ -29,6 +29,7 @@ const t = useTranslations(lang);
 
 <style>
 	.theme-toggle {
+		min-width: 7.25rem;
 		white-space: nowrap;
 	}
 
@@ -50,6 +51,32 @@ const t = useTranslations(lang);
 	.theme-toggle[aria-pressed='true'] .theme-icon-sun {
 		display: block;
 	}
+
+	@media (max-width: 37.5rem) {
+		.theme-toggle {
+			width: 2.375rem;
+			min-width: 2.375rem;
+			min-height: 2.375rem;
+			padding-inline: 0;
+		}
+
+		.theme-label {
+			position: absolute;
+			width: 1px;
+			height: 1px;
+			padding: 0;
+			margin: -1px;
+			overflow: hidden;
+			clip: rect(0, 0, 0, 0);
+			white-space: nowrap;
+			border: 0;
+		}
+
+		.theme-icon {
+			width: 1.05rem;
+			height: 1.05rem;
+		}
+	}
 </style>
 
 <script is:inline>
@@ -65,14 +92,14 @@ const t = useTranslations(lang);
 		const isDark = getTheme() === 'dark';
 		button.setAttribute(
 			'aria-label',
-			isDark ? button.dataset.ariaLight ?? 'Light' : button.dataset.ariaDark ?? 'Dark',
+			isDark ? (button.dataset.ariaLight ?? 'Light') : (button.dataset.ariaDark ?? 'Dark'),
 		);
 		button.setAttribute('aria-pressed', String(isDark));
 		const label = button.querySelector('.theme-label');
 		if (label) {
 			label.textContent = isDark
-				? button.dataset.labelLight ?? 'Light'
-				: button.dataset.labelDark ?? 'Dark';
+				? (button.dataset.labelLight ?? 'Light')
+				: (button.dataset.labelDark ?? 'Dark');
 		}
 	};
 
