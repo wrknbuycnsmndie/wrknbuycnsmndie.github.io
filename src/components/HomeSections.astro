@@ -1,21 +1,45 @@
+---
+import { getLangFromUrl, useTranslatedPath, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+
+const sections = [
+	{
+		id: 'my-projects',
+		index: '01',
+		title: t('home.projects.title'),
+		body: t('home.projects.empty'),
+		href: translatePath('/projects/'),
+	},
+	{
+		id: 'my-resume',
+		index: '02',
+		title: t('home.resume.title'),
+		body: t('home.resume.empty'),
+		href: translatePath('/resume/'),
+	},
+	{
+		id: 'my-posts',
+		index: '03',
+		title: t('home.posts.title'),
+		body: t('home.posts.empty'),
+		href: translatePath('/blog/'),
+	},
+];
+---
+
 <div class="home-sections">
-	<section id="my-projects" class="home-section">
-		<p class="section-index">01</p>
-		<h2>My projects</h2>
-		<p class="empty-state">My works will appear here.</p>
-	</section>
-
-	<section id="my-resume" class="home-section">
-		<p class="section-index">02</p>
-		<h2>My resume</h2>
-		<p class="empty-state">Resume is also coming soon.</p>
-	</section>
-
-	<section id="my-posts" class="home-section">
-		<p class="section-index">03</p>
-		<h2>My posts</h2>
-		<p class="empty-state">Posts into blog will appear here too.</p>
-	</section>
+	{
+		sections.map((section) => (
+			<a id={section.id} class="home-section" href={section.href}>
+				<p class="section-index">{section.index}</p>
+				<h2>{section.title}</h2>
+				<p class="empty-state">{section.body}</p>
+			</a>
+		))
+	}
 </div>
 
 <style>
@@ -24,7 +48,7 @@
 		grid-template-columns: repeat(3, minmax(0, 1fr));
 		margin-top: var(--space-18);
 		border-top: var(--border-width) solid var(--color-border-strong);
-		border-bottom: var(--border-width) solid var(--color-border-strong);
+		border: var(--border-width) solid var(--color-border-strong);
 		animation: enter var(--duration-slow) var(--ease-out) both;
 	}
 
@@ -33,10 +57,35 @@
 		min-height: 16rem;
 		padding: var(--space-5);
 		flex-direction: column;
+		color: inherit;
+		text-decoration: none;
+		transition:
+			background-color var(--duration-fast),
+			color var(--duration-fast),
+			transform var(--duration-fast);
 	}
 
 	.home-section + .home-section {
 		border-left: var(--border-width) solid var(--color-border-strong);
+	}
+
+	.home-section:hover {
+		background: var(--color-secondary);
+		color: var(--color-on-secondary);
+	}
+
+	.home-section:hover .section-index,
+	.home-section:hover .empty-state {
+		color: inherit;
+	}
+
+	.home-section:active {
+		transform: translateY(1px);
+	}
+
+	.home-section:focus-visible {
+		outline: var(--border-width-strong) solid var(--color-secondary);
+		outline-offset: calc(var(--border-width-strong) * -1);
 	}
 
 	.section-index,

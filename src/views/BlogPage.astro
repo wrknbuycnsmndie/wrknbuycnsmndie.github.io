@@ -1,0 +1,14 @@
+---
+import TextPage from '../components/TextPage.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<BaseLayout title={t('meta.blog.title')} description={t('meta.blog.description')}>
+	<TextPage title={t('blog.title')}>
+		<p>{t('blog.body')}</p>
+	</TextPage>
+</BaseLayout>
