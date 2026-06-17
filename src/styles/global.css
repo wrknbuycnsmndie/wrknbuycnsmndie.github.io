@@ -1,7 +1,17 @@
 :root {
 	/* Primitive typography */
-	--typeface-serif: 'STIX Two Text', Georgia, serif;
-	--typeface-mono: ui-monospace, SFMono-Regular, Consolas, monospace;
+	--typeface-sans:
+		Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+		'Helvetica Neue', Arial, sans-serif;
+
+	--typeface-serif:
+		'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, Cambria,
+		'Times New Roman', serif;
+
+	--typeface-mono:
+		'SFMono-Regular', 'Cascadia Code', 'JetBrains Mono', 'Fira Code', Menlo, Monaco, Consolas,
+		'Liberation Mono', monospace;
+
 	--font-size-sm: 0.875rem;
 	--font-size-md: 1.0625rem;
 	--font-size-lg: clamp(1.125rem, 1rem + 0.4vw, 1.25rem);
@@ -44,10 +54,10 @@
 	--palette-gray-700: oklch(45% 0 0);
 	--palette-gray-800: oklch(30% 0 0);
 	--palette-black: oklch(10% 0 0);
-	--palette-orange-500: oklch(58% 0.23 45);
-	--palette-orange-400: oklch(68% 0.21 48);
-	--palette-vermilion-600: oklch(54% 0.23 30);
-	--palette-vermilion-400: oklch(72% 0.18 35);
+	--palette-cobalt-600: oklch(52% 0.1 252);
+	--palette-cobalt-450: oklch(68% 0.09 248);
+	--palette-teal-600: oklch(56% 0.08 198);
+	--palette-teal-450: oklch(70% 0.07 194);
 
 	/* Semantic layout and typography */
 	--page-gutter: clamp(1rem, 2.5vw, 2.5rem);
@@ -60,9 +70,9 @@
 	--color-text-muted: light-dark(var(--palette-gray-700), var(--palette-gray-500));
 	--color-border: light-dark(var(--palette-gray-300), var(--palette-gray-800));
 	--color-border-strong: light-dark(var(--palette-gray-600), var(--palette-gray-500));
-	--color-accent: light-dark(var(--palette-orange-500), var(--palette-orange-400));
+	--color-accent: light-dark(var(--palette-cobalt-600), var(--palette-cobalt-450));
 	--color-on-accent: light-dark(var(--palette-white), var(--palette-black));
-	--color-secondary: light-dark(var(--palette-vermilion-600), var(--palette-vermilion-400));
+	--color-secondary: light-dark(var(--palette-teal-600), var(--palette-teal-450));
 	--color-on-secondary: light-dark(var(--palette-white), var(--palette-black));
 
 	color-scheme: light dark;
