@@ -1,41 +1,30 @@
 ---
 import ThemeToggle from '../ThemeToggle.astro';
+import LanguagePicker from '../LanguagePicker.astro';
+import BurgerMenu from './BurgerMenu.astro';
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '../../i18n/utils';
 
+const lang = getLangFromUrl(Astro.url);
 const currentPath = Astro.url.pathname;
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
 
 const links = [
-	{ href: '/', label: 'Home' },
-	{ href: '/about/', label: 'About' },
+	{ href: translatePath('/'), label: t('nav.home') },
+	{ href: translatePath('/projects/'), label: t('nav.projects') },
+	{ href: translatePath('/blog/'), label: t('nav.blog') },
+	{ href: translatePath('/resume/'), label: t('nav.resume') },
+	{ href: translatePath('/about/'), label: t('nav.about') },
 ];
 ---
 
 <header class="site-header">
-	<a class="site-name" href="/">wrknbuycnsmndie</a>
-
-	<nav id="main-navigation" aria-label="Main navigation">
-		{
-			links.map((link) => (
-				<a
-					class="control"
-					href={link.href}
-					aria-current={currentPath === link.href ? 'page' : undefined}
-				>
-					{link.label}
-				</a>
-			))
-		}
-	</nav>
+	<a class="site-name" href={translatePath('/')}>wrknbuycnsmndie</a>
 
 	<div class="header-actions">
+		<LanguagePicker />
 		<ThemeToggle />
-		<button
-			class="control menu-toggle"
-			type="button"
-			aria-expanded="false"
-			aria-controls="main-navigation"
-		>
-			Menu
-		</button>
+		<BurgerMenu currentPath={currentPath} links={links} menuLabel={t('nav.menu')} />
 	</div>
 </header>
 
@@ -43,7 +32,7 @@ const links = [
 	.site-header {
 		display: grid;
 		width: 100%;
-		grid-template-columns: 1fr auto auto;
+		grid-template-columns: 1fr auto;
 		align-items: center;
 		gap: var(--space-6);
 		padding: var(--space-5) var(--page-gutter);
@@ -61,56 +50,4 @@ const links = [
 		align-items: center;
 		gap: var(--space-4);
 	}
-
-	.menu-toggle {
-		display: none;
-	}
-
-	nav {
-		display: flex;
-		gap: var(--space-2);
-	}
-
-	@media (max-width: 37.5rem) {
-		.site-header {
-			grid-template-columns: 1fr auto;
-			gap: var(--space-4);
-		}
-
-		.menu-toggle {
-			display: inline;
-		}
-
-		nav {
-			display: none;
-			grid-column: 1 / -1;
-			grid-row: 2;
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-			padding-top: var(--space-4);
-			border-top: var(--border-width) solid var(--color-border);
-		}
-
-		nav.is-open {
-			display: grid;
-		}
-	}
 </style>
-
-<script is:inline>
-	const initializeHeader = () => {
-		const menuButton = document.querySelector('.menu-toggle');
-		const navigation = document.querySelector('#main-navigation');
-
-		if (menuButton && !menuButton.dataset.ready) {
-			menuButton.dataset.ready = 'true';
-			menuButton.addEventListener('click', () => {
-				const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
-				menuButton.setAttribute('aria-expanded', String(!isOpen));
-				navigation?.classList.toggle('is-open', !isOpen);
-			});
-		}
-	};
-
-	initializeHeader();
-	document.addEventListener('astro:page-load', initializeHeader);
-</script>

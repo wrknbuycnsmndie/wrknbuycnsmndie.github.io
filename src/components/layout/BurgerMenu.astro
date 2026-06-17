@@ -1,0 +1,124 @@
+---
+interface Link {
+	href: string;
+	label: string;
+}
+
+interface Props {
+	currentPath: string;
+	links: Link[];
+	menuLabel: string;
+}
+
+const { currentPath, links, menuLabel } = Astro.props;
+---
+
+<div class="burger-menu">
+	<nav id="main-navigation" aria-label="Main navigation">
+		{
+			links.map((link) => (
+				<a
+					class="control"
+					href={link.href}
+					aria-current={currentPath === link.href ? 'page' : undefined}
+				>
+					{link.label}
+				</a>
+			))
+		}
+	</nav>
+
+	<button
+		class="control menu-toggle"
+		type="button"
+		aria-expanded="false"
+		aria-controls="main-navigation"
+	>
+		{menuLabel}
+	</button>
+</div>
+
+<style>
+	.burger-menu {
+		position: relative;
+	}
+
+	nav {
+		display: flex;
+		position: absolute;
+		top: calc(100% + var(--space-4));
+		right: 0;
+		z-index: 10;
+		min-width: min(24rem, calc(100vw - (var(--page-gutter) * 2)));
+		padding: var(--space-3);
+		flex-direction: column;
+		gap: var(--space-2);
+		border: var(--border-width) solid var(--color-border);
+		background: var(--color-canvas);
+		opacity: 0;
+		pointer-events: none;
+		transform: translateY(-0.5rem);
+		transition:
+			opacity var(--duration-fast),
+			transform var(--duration-fast);
+	}
+
+	nav.is-open {
+		opacity: 1;
+		pointer-events: auto;
+		transform: translateY(0);
+	}
+
+	nav :global(.control) {
+		width: 100%;
+		justify-content: flex-start;
+	}
+
+	@media (max-width: 37.5rem) {
+		nav {
+			right: 0;
+			min-width: min(20rem, calc(100vw - (var(--page-gutter) * 2)));
+		}
+	}
+</style>
+
+<script is:inline>
+	const initializeBurgerMenus = () => {
+		document.querySelectorAll('.burger-menu').forEach((menuRoot) => {
+			const menuButton = menuRoot.querySelector('.menu-toggle');
+			const navigation = menuRoot.querySelector('#main-navigation');
+			if (!menuButton || !navigation) return;
+
+			const setMenuState = (isOpen) => {
+				menuButton.setAttribute('aria-expanded', String(isOpen));
+				navigation.classList.toggle('is-open', isOpen);
+			};
+
+			setMenuState(false);
+
+			if (menuButton.dataset.ready) return;
+			menuButton.dataset.ready = 'true';
+
+			menuButton.addEventListener('click', () => {
+				const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
+				setMenuState(!isOpen);
+			});
+
+			document.addEventListener('click', (event) => {
+				if (!(event.target instanceof Node)) return;
+				if (!menuRoot.contains(event.target)) {
+					setMenuState(false);
+				}
+			});
+
+			navigation.querySelectorAll('a').forEach((link) => {
+				link.addEventListener('click', () => {
+					setMenuState(false);
+				});
+			});
+		});
+	};
+
+	initializeBurgerMenus();
+	document.addEventListener('astro:page-load', initializeBurgerMenus);
+</script>
