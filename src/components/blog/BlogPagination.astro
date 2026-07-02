@@ -1,0 +1,132 @@
+---
+interface PageUrls {
+	current: string;
+	first?: string;
+	prev?: string;
+	next?: string;
+	last?: string;
+}
+
+interface Props {
+	currentPage: number;
+	lastPage: number;
+	url: PageUrls;
+	labels: {
+		aria: string;
+		previous: string;
+		next: string;
+		page: string;
+		of: string;
+	};
+}
+
+const { currentPage, lastPage, url, labels } = Astro.props;
+const hasPagination = lastPage > 1;
+---
+
+{
+	hasPagination && (
+		<nav class="blog-pagination" aria-label={labels.aria}>
+			{url.prev ? (
+				<a class="pagination-link pagination-link-prev" href={url.prev}>
+					{labels.previous}
+				</a>
+			) : (
+				<span class="pagination-spacer" aria-hidden="true" />
+			)}
+
+			<p class="pagination-current">
+				{labels.page} {currentPage} {labels.of} {lastPage}
+			</p>
+
+			{url.next ? (
+				<a class="pagination-link pagination-link-next" href={url.next}>
+					{labels.next}
+				</a>
+			) : (
+				<span class="pagination-spacer" aria-hidden="true" />
+			)}
+		</nav>
+	)
+}
+
+<style>
+	.blog-pagination {
+		display: grid;
+		grid-template-columns: 1fr auto 1fr;
+		align-items: center;
+		gap: var(--space-3);
+		color: var(--color-text-muted);
+		font-size: var(--font-size-sm);
+	}
+
+	.pagination-link {
+		display: inline-flex;
+		min-height: 2rem;
+		align-items: center;
+		justify-content: center;
+		padding-inline: var(--space-3);
+		border: var(--border-width) solid var(--color-border);
+		color: inherit;
+		background: var(--color-canvas);
+		text-decoration: none;
+	}
+
+	.pagination-link:hover {
+		border-color: var(--color-secondary);
+		color: var(--color-on-secondary);
+		background: var(--color-secondary);
+	}
+
+	.pagination-link-prev {
+		justify-self: start;
+	}
+
+	.pagination-link-next {
+		justify-self: end;
+	}
+
+	.pagination-spacer {
+		min-width: 1px;
+	}
+
+	.pagination-current {
+		margin: 0;
+		font-family: var(--font-family-code);
+		white-space: nowrap;
+	}
+
+	@media (max-width: 37.5rem) {
+		.blog-pagination {
+			grid-template-columns: 1fr 1fr;
+			align-items: stretch;
+		}
+
+		.pagination-current {
+			grid-column: 1 / -1;
+			grid-row: 1;
+			justify-self: center;
+		}
+
+		.pagination-link,
+		.pagination-spacer {
+			grid-row: 2;
+		}
+
+		.pagination-link-prev,
+		.pagination-spacer:first-child {
+			justify-self: stretch;
+		}
+
+		.pagination-link-next,
+		.pagination-spacer:last-child {
+			justify-self: stretch;
+		}
+
+		.pagination-link {
+			min-height: 2rem;
+			padding-inline: var(--space-2);
+			font-size: 0.75rem;
+		}
+	}
+</style>
