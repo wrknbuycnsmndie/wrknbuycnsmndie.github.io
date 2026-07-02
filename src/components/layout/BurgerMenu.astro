@@ -77,15 +77,23 @@ const { currentPath, links, menuLabel } = Astro.props;
 	@media (max-width: 37.5rem) {
 		nav {
 			position: fixed;
-			top: calc(var(--space-4) + 2.375rem);
+			top: calc(var(--space-3) + 2rem);
 			right: var(--page-gutter);
 			left: var(--page-gutter);
 			min-width: 0;
+			padding: var(--space-2);
+			gap: var(--space-1);
 		}
 
 		.menu-toggle {
-			min-height: 2.375rem;
-			padding-inline: var(--space-3);
+			min-height: 2rem;
+			padding-inline: var(--space-2);
+			font-size: 0.7rem;
+		}
+
+		nav :global(.control) {
+			min-height: 2rem;
+			padding-inline: var(--space-2);
 			font-size: 0.75rem;
 		}
 	}

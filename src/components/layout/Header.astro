@@ -1,25 +1,25 @@
 ---
-import ThemeToggle from '../ThemeToggle.astro';
+import ThemeToggle from '../theme/ThemeToggle.astro';
 import LanguagePicker from '../LanguagePicker.astro';
 import BurgerMenu from './BurgerMenu.astro';
-import { getLangFromUrl, useTranslations, useTranslatedPath } from '../../i18n/utils';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { getLocale, useTranslations } from '../../i18n/utils';
 
-const lang = getLangFromUrl(Astro.url);
+const lang = getLocale(Astro.currentLocale);
 const currentPath = Astro.url.pathname;
 const t = useTranslations(lang);
-const translatePath = useTranslatedPath(lang);
 
 const links = [
-	{ href: translatePath('/'), label: t('nav.home') },
-	{ href: translatePath('/projects/'), label: t('nav.projects') },
-	{ href: translatePath('/blog/'), label: t('nav.blog') },
-	{ href: translatePath('/resume/'), label: t('nav.resume') },
-	{ href: translatePath('/about/'), label: t('nav.about') },
+	{ href: getRelativeLocaleUrl(lang, '/'), label: t('nav.home') },
+	{ href: getRelativeLocaleUrl(lang, '/projects/'), label: t('nav.projects') },
+	{ href: getRelativeLocaleUrl(lang, '/blog/'), label: t('nav.blog') },
+	{ href: getRelativeLocaleUrl(lang, '/resume/'), label: t('nav.resume') },
+	{ href: getRelativeLocaleUrl(lang, '/about/'), label: t('nav.about') },
 ];
 ---
 
 <header class="site-header">
-	<a class="site-name" href={translatePath('/')}>wrknbuycnsmndie</a>
+	<a class="site-name" href={getRelativeLocaleUrl(lang, '/')}>wrknbuycnsmndie</a>
 
 	<div class="header-actions">
 		<LanguagePicker />
@@ -32,7 +32,7 @@ const links = [
 	.site-header {
 		display: grid;
 		width: 100%;
-		grid-template-columns: 1fr auto;
+		grid-template-columns: minmax(0, 1fr) auto;
 		align-items: center;
 		gap: var(--space-6);
 		padding: var(--space-5) var(--page-gutter);
@@ -40,13 +40,19 @@ const links = [
 	}
 
 	.site-name {
+		min-width: 0;
+		overflow: hidden;
 		font-weight: var(--font-weight-semibold);
 		letter-spacing: var(--letter-spacing-wide);
 		text-decoration: none;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 
 	.header-actions {
 		display: flex;
+		min-width: 0;
+		flex-shrink: 0;
 		align-items: center;
 		gap: var(--space-4);
 	}

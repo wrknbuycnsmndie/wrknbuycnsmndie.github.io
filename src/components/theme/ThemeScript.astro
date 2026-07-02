@@ -1,0 +1,11 @@
+<script is:inline>
+	const applyTheme = (root = document.documentElement) => {
+		const theme = localStorage.getItem('theme');
+		if (theme === 'light' || theme === 'dark') root.dataset.theme = theme;
+	};
+
+	applyTheme();
+	document.addEventListener('astro:before-swap', (event) => {
+		applyTheme(event.newDocument.documentElement);
+	});
+</script>

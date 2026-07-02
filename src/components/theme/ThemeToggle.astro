@@ -1,0 +1,104 @@
+---
+import { getLocale, useTranslations } from '../../i18n/utils';
+
+const lang = getLocale(Astro.currentLocale);
+const t = useTranslations(lang);
+---
+
+<button
+	class="control theme-toggle"
+	type="button"
+	aria-label={t('theme.switchToDark')}
+	aria-pressed="false"
+	data-aria-dark={t('theme.switchToDark')}
+	data-aria-light={t('theme.switchToLight')}
+>
+	<svg class="theme-icon theme-icon-moon lucide lucide-moon" viewBox="0 0 24 24" aria-hidden="true">
+		<path
+			d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"
+		></path>
+	</svg>
+	<svg class="theme-icon theme-icon-sun lucide lucide-sun" viewBox="0 0 24 24" aria-hidden="true">
+		<circle cx="12" cy="12" r="4"></circle>
+		<path d="M12 2v2"></path>
+		<path d="M12 20v2"></path>
+		<path d="m4.93 4.93 1.41 1.41"></path>
+		<path d="m17.66 17.66 1.41 1.41"></path>
+		<path d="M2 12h2"></path>
+		<path d="M20 12h2"></path>
+		<path d="m6.34 17.66-1.41 1.41"></path>
+		<path d="m19.07 4.93-1.41 1.41"></path>
+	</svg>
+</button>
+
+<style>
+	.theme-toggle {
+		width: 2.375rem;
+		min-width: 2.375rem;
+		flex: 0 0 2.375rem;
+		padding-inline: 0;
+	}
+
+	.theme-icon {
+		width: 1.125rem;
+		height: 1.125rem;
+		fill: none;
+		stroke: currentColor;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+		stroke-width: 1.6;
+	}
+
+	.theme-icon-sun,
+	.theme-toggle[aria-pressed='true'] .theme-icon-moon {
+		display: none;
+	}
+
+	.theme-toggle[aria-pressed='true'] .theme-icon-sun {
+		display: block;
+	}
+
+	@media (max-width: 37.5rem) {
+		.theme-toggle {
+			width: 2rem;
+			min-width: 2rem;
+			min-height: 2rem;
+			flex-basis: 2rem;
+		}
+
+		.theme-icon {
+			width: 0.95rem;
+			height: 0.95rem;
+		}
+	}
+</style>
+
+<script is:inline>
+	const setupThemeToggle = () => {
+		const button = document.querySelector('.theme-toggle');
+		if (!button || button.dataset.ready) return;
+
+		const syncButton = () => {
+			const isDark = document.documentElement.dataset.theme === 'dark';
+			button.setAttribute('aria-pressed', String(isDark));
+			button.setAttribute(
+				'aria-label',
+				isDark
+					? button.dataset.ariaLight || 'Switch to light theme'
+					: button.dataset.ariaDark || 'Switch to dark theme',
+			);
+		};
+
+		button.dataset.ready = 'true';
+		button.addEventListener('click', () => {
+			const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+			document.documentElement.dataset.theme = theme;
+			localStorage.setItem('theme', theme);
+			syncButton();
+		});
+		syncButton();
+	};
+
+	setupThemeToggle();
+	document.addEventListener('astro:page-load', setupThemeToggle);
+</script>
