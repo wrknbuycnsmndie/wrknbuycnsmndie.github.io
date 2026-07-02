@@ -1,5 +1,18 @@
 ---
-import HomePage from '../views/HomePage.astro';
+const destination = '/ru/';
 ---
 
-<HomePage />
+<!doctype html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta http-equiv="refresh" content={`0; url=${destination}`} />
+		<link rel="canonical" href={new URL(destination, Astro.site).href} />
+		<script is:inline set:html={`window.location.replace('${destination}');`} />
+		<title>Redirecting…</title>
+	</head>
+	<body>
+		<a href={destination}>Перейти на русскую версию</a>
+	</body>
+</html>

@@ -1,0 +1,48 @@
+---
+import { getCollection } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import BlogPage from '../../../../../views/BlogPage.astro';
+import { getTagsWithCounts } from '../../../../../lib/seo';
+
+export const getStaticPaths = (async ({ paginate }) => {
+	const pageSize = 6;
+	const posts = (await getCollection('blogEn', ({ data }) => !data.draft)).sort(
+		(a, b) => b.data.createdAt.getTime() - a.data.createdAt.getTime(),
+	);
+	const ruPosts = await getCollection('blogRu', ({ data }) => !data.draft);
+	const tags = getTagsWithCounts(posts);
+	const ruTagCounts = new Map(getTagsWithCounts(ruPosts).map(({ name, count }) => [name, count]));
+
+	return tags.flatMap(({ name: tag }) => {
+		const ruLastPage = Math.ceil((ruTagCounts.get(tag) ?? 0) / pageSize);
+
+		return paginate(
+			posts.filter((post) => post.data.tags.includes(tag)),
+			{
+				pageSize,
+				params: { tag },
+				props: { tag, tags, locale: 'en' },
+			},
+		).map((path) => {
+			const currentPage = path.props.page.currentPage;
+			const tagPath =
+				currentPage === 1 ? `/blog/tags/${tag}/` : `/blog/tags/${tag}/${currentPage}/`;
+
+			return {
+				...path,
+				props: {
+					...path.props,
+					alternateUrls: {
+						en: `/en${tagPath}`,
+						...(currentPage <= ruLastPage ? { ru: `/ru${tagPath}` } : {}),
+					},
+				},
+			};
+		});
+	});
+}) satisfies GetStaticPaths;
+
+const { page, tag, tags, locale, alternateUrls } = Astro.props;
+---
+
+<BlogPage page={page} tag={tag} tags={tags} locale={locale} alternateUrls={alternateUrls} />

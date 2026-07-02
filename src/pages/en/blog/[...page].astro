@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import BlogPage from '../../../views/BlogPage.astro';
+import { getTagsWithCounts } from '../../../lib/seo';
+
+export const getStaticPaths = (async ({ paginate }) => {
+	const pageSize = 6;
+	const posts = (await getCollection('blogEn', ({ data }) => !data.draft)).sort(
+		(a, b) => b.data.createdAt.getTime() - a.data.createdAt.getTime(),
+	);
+	const ruPosts = await getCollection('blogRu', ({ data }) => !data.draft);
+	const ruLastPage = Math.ceil(ruPosts.length / pageSize);
+	const tags = getTagsWithCounts(posts);
+
+	return paginate(posts, {
+		pageSize,
+		props: { tags, locale: 'en' },
+	}).map((path) => {
+		const currentPage = path.props.page.currentPage;
+		const pagePath = currentPage === 1 ? '/blog/' : `/blog/${currentPage}/`;
+
+		return {
+			...path,
+			props: {
+				...path.props,
+				alternateUrls: {
+					en: `/en${pagePath}`,
+					...(currentPage <= ruLastPage ? { ru: `/ru${pagePath}` } : {}),
+				},
+			},
+		};
+	});
+}) satisfies GetStaticPaths;
+
+const { page, tags, locale, alternateUrls } = Astro.props;
+---
+
+<BlogPage page={page} tags={tags} locale={locale} alternateUrls={alternateUrls} />
