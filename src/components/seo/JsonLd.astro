@@ -1,0 +1,12 @@
+---
+import { jsonLdDocument, type JsonLdInput } from '../../lib/seo';
+
+interface Props {
+	data?: JsonLdInput;
+}
+
+const { data } = Astro.props;
+const jsonLd = jsonLdDocument(data);
+---
+
+{jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}

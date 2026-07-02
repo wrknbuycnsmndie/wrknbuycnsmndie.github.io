@@ -1,0 +1,104 @@
+---
+import { getAbsoluteLocaleUrl } from 'astro:i18n';
+import { getLocale, useTranslations, type Locale } from '../../i18n/utils';
+import {
+	pageSchema,
+	type JsonLdInput,
+	type JsonLdObject,
+	type PageSchemaType,
+} from '../../lib/seo';
+import JsonLd from './JsonLd.astro';
+
+interface Props {
+	title: string;
+	description: string;
+	ogImage?: string;
+	ogImageAlt?: string;
+	ogType?: 'website' | 'article';
+	canonicalPath?: string;
+	alternateUrls?: Partial<Record<Locale, string>> | false;
+	pageType?: PageSchemaType;
+	keywords?: string[];
+	about?: JsonLdObject;
+	mainEntity?: JsonLdObject;
+	jsonLd?: JsonLdInput;
+}
+
+const {
+	title,
+	description,
+	ogImage,
+	ogImageAlt = title,
+	ogType = 'website',
+	canonicalPath,
+	alternateUrls,
+	pageType,
+	keywords,
+	about,
+	mainEntity,
+	jsonLd,
+} = Astro.props;
+const lang = getLocale(Astro.currentLocale);
+const t = useTranslations(lang);
+const normalizePathname = (pathname: string) =>
+	pathname === '/' ? '/' : pathname.endsWith('/') ? pathname : `${pathname}/`;
+const stripLocale = (pathname: string) =>
+	pathname.startsWith('/ru/') || pathname.startsWith('/en/') ? pathname.slice(3) : pathname;
+const canonicalUrl = new URL(normalizePathname(canonicalPath ?? Astro.url.pathname), Astro.site);
+const unlocalizedPath = normalizePathname(stripLocale(canonicalPath ?? Astro.url.pathname));
+const toAbsoluteHref = (href: string) => new URL(href, Astro.site).href;
+const localeUrls =
+	alternateUrls === false
+		? { [lang]: canonicalUrl.href }
+		: alternateUrls
+			? Object.fromEntries(
+					Object.entries(alternateUrls).map(([locale, href]) => [locale, toAbsoluteHref(href)]),
+				)
+			: {
+					ru: getAbsoluteLocaleUrl('ru', unlocalizedPath),
+					en: getAbsoluteLocaleUrl('en', unlocalizedPath),
+				};
+const locale = lang === 'ru' ? 'ru_RU' : 'en_US';
+const alternateLang = lang === 'ru' ? 'en' : 'ru';
+const alternateLocale = alternateLang === 'ru' ? 'ru_RU' : 'en_US';
+const canonicalImage = ogImage ? new URL(ogImage, Astro.site).href : undefined;
+const twitterCard = canonicalImage ? 'summary_large_image' : 'summary';
+const schema = pageSchema({
+	type: pageType,
+	url: canonicalUrl.href,
+	title,
+	description,
+	locale: lang,
+	keywords,
+	about,
+	mainEntity,
+	extra: jsonLd,
+});
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl.href} />
+{localeUrls.ru && <link rel="alternate" hreflang="ru" href={localeUrls.ru} />}
+{localeUrls.en && <link rel="alternate" hreflang="en" href={localeUrls.en} />}
+{localeUrls.ru && <link rel="alternate" hreflang="x-default" href={localeUrls.ru} />}
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<meta property="og:type" content={ogType} />
+<meta property="og:site_name" content={t('site.name')} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl.href} />
+<meta property="og:locale" content={locale} />
+{localeUrls[alternateLang] && <meta property="og:locale:alternate" content={alternateLocale} />}
+{canonicalImage && <meta property="og:image" content={canonicalImage} />}
+{canonicalImage && <meta property="og:image:alt" content={ogImageAlt} />}
+<meta name="twitter:card" content={twitterCard} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+{canonicalImage && <meta name="twitter:image" content={canonicalImage} />}
+{canonicalImage && <meta name="twitter:image:alt" content={ogImageAlt} />}
+<slot />
+<meta name="generator" content={Astro.generator} />
+<JsonLd data={schema} />
+<title>{title}</title>

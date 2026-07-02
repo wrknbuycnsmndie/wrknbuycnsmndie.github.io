@@ -3,44 +3,37 @@ import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 import Footer from '../components/layout/Footer.astro';
 import Header from '../components/layout/Header.astro';
-import { getLangFromUrl } from '../i18n/utils';
+import SeoHead from '../components/seo/SeoHead.astro';
+import ThemeScript from '../components/theme/ThemeScript.astro';
+import type { JsonLdInput, JsonLdObject, PageSchemaType } from '../lib/seo';
+import { getLocale, type Locale } from '../i18n/utils';
 
 interface Props {
 	title: string;
 	description: string;
+	ogImage?: string;
+	ogImageAlt?: string;
+	ogType?: 'website' | 'article';
+	canonicalPath?: string;
+	alternateUrls?: Partial<Record<Locale, string>> | false;
+	pageType?: PageSchemaType;
+	keywords?: string[];
+	about?: JsonLdObject;
+	mainEntity?: JsonLdObject;
+	jsonLd?: JsonLdInput;
 }
 
-const { title, description } = Astro.props;
-const lang = getLangFromUrl(Astro.url);
+const lang = getLocale(Astro.currentLocale);
 ---
 
 <!doctype html>
 <html lang={lang} transition:animate="none">
 	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="description" content={description} />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<!-- <link rel="preconnect" href="https://fonts.googleapis.com" /> -->
-		<!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /> -->
-		<!-- <link
-			href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;1,400&display=swap"
-			rel="stylesheet"
-		/> -->
-		<meta name="generator" content={Astro.generator} />
-		<script is:inline>
-			const applySavedTheme = (root = document.documentElement) => {
-				const theme = localStorage.getItem('theme');
-				if (theme === 'light' || theme === 'dark') root.dataset.theme = theme;
-			};
-
-			applySavedTheme();
-			document.addEventListener('astro:before-swap', (event) => {
-				applySavedTheme(event.newDocument.documentElement);
-			});
-		</script>
+		<SeoHead {...Astro.props}>
+			<slot name="head" />
+		</SeoHead>
+		<ThemeScript />
 		<ClientRouter />
-		<title>{title}</title>
 	</head>
 	<body>
 		<Header />
