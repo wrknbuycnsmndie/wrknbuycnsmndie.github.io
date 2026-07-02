@@ -1,9 +1,9 @@
 ---
-import { getLangFromUrl, useTranslatedPath, useTranslations } from '../i18n/utils';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { getLocale, useTranslations } from '../i18n/utils';
 
-const lang = getLangFromUrl(Astro.url);
+const lang = getLocale(Astro.currentLocale);
 const t = useTranslations(lang);
-const translatePath = useTranslatedPath(lang);
 
 const sections = [
 	{
@@ -11,21 +11,21 @@ const sections = [
 		index: '01',
 		title: t('home.projects.title'),
 		body: t('home.projects.empty'),
-		href: translatePath('/projects/'),
+		href: getRelativeLocaleUrl(lang, '/projects/'),
 	},
 	{
 		id: 'my-resume',
 		index: '02',
 		title: t('home.resume.title'),
 		body: t('home.resume.empty'),
-		href: translatePath('/resume/'),
+		href: getRelativeLocaleUrl(lang, '/resume/'),
 	},
 	{
 		id: 'my-posts',
 		index: '03',
 		title: t('home.posts.title'),
-		body: t('home.posts.empty'),
-		href: translatePath('/blog/'),
+		body: t('home.posts.body'),
+		href: getRelativeLocaleUrl(lang, '/blog/'),
 	},
 ];
 ---

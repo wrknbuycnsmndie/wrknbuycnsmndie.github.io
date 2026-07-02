@@ -1,13 +1,21 @@
 ---
 import TextPage from '../components/TextPage.astro';
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLocale, useTranslations } from '../i18n/utils';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const lang = getLangFromUrl(Astro.url);
+const lang = getLocale(Astro.currentLocale);
 const t = useTranslations(lang);
+const title = t('meta.projects.title');
+const description = t('meta.projects.description');
+const canonicalPath = `/${lang}/projects/`;
 ---
 
-<BaseLayout title={t('meta.projects.title')} description={t('meta.projects.description')}>
+<BaseLayout
+	title={title}
+	description={description}
+	canonicalPath={canonicalPath}
+	pageType="CollectionPage"
+>
 	<TextPage title={t('projects.title')}>
 		<p>{t('projects.body')}</p>
 	</TextPage>

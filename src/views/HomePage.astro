@@ -1,14 +1,17 @@
 ---
 import HomeHero from '../components/HomeHero.astro';
 import HomeSections from '../components/HomeSections.astro';
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLocale, useTranslations } from '../i18n/utils';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const lang = getLangFromUrl(Astro.url);
+const lang = getLocale(Astro.currentLocale);
 const t = useTranslations(lang);
+const title = t('meta.home.title');
+const description = t('meta.home.description');
+const canonicalPath = `/${lang}/`;
 ---
 
-<BaseLayout title={t('meta.home.title')} description={t('meta.home.description')}>
+<BaseLayout title={title} description={description} canonicalPath={canonicalPath}>
 	<HomeHero />
 	<HomeSections />
 </BaseLayout>

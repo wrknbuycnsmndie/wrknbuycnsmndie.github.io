@@ -1,13 +1,21 @@
 ---
 import TextPage from '../components/TextPage.astro';
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLocale, useTranslations } from '../i18n/utils';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const lang = getLangFromUrl(Astro.url);
+const lang = getLocale(Astro.currentLocale);
 const t = useTranslations(lang);
+const title = t('meta.about.title');
+const description = t('meta.about.description');
+const canonicalPath = `/${lang}/about/`;
 ---
 
-<BaseLayout title={t('meta.about.title')} description={t('meta.about.description')}>
+<BaseLayout
+	title={title}
+	description={description}
+	canonicalPath={canonicalPath}
+	pageType="AboutPage"
+>
 	<TextPage title={t('about.title')}>
 		<p>{t('about.body')}</p>
 	</TextPage>
