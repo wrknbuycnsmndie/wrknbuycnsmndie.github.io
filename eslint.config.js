@@ -11,8 +11,9 @@ export default [
 	js.configs.recommended,
 	...astro.configs['flat/recommended'],
 	{
-		files: ['**/*.{js,mjs,ts,astro}'],
+		files: ['**/*.{js,mjs,ts}'],
 		languageOptions: {
+			parser: tsParser,
 			globals: {
 				...globals.browser,
 				...globals.node,
