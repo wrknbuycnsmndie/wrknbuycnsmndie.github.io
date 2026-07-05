@@ -44,6 +44,7 @@
 	--duration-fast: 160ms;
 	--duration-slow: 520ms;
 	--ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+	--enter-distance: 1.125rem;
 
 	/* Primitive palette */
 	--palette-white: oklch(100% 0 0);
@@ -61,24 +62,41 @@
 
 	/* Semantic layout and typography */
 	--page-gutter: clamp(1rem, 2.5vw, 2.5rem);
+	--container-article: 44rem;
+	--container-page: 60rem;
 	--font-family-body: var(--typeface-serif);
 	--font-family-code: var(--typeface-mono);
 
 	/* Semantic colors */
-	--color-canvas: light-dark(var(--palette-white), var(--palette-black));
+	--color-background: light-dark(var(--palette-white), var(--palette-black));
+	--color-surface: var(--color-background);
 	--color-text: light-dark(var(--palette-black), var(--palette-gray-100));
 	--color-text-muted: light-dark(var(--palette-gray-700), var(--palette-gray-500));
 	--color-border: light-dark(var(--palette-gray-300), var(--palette-gray-800));
 	--color-border-strong: light-dark(var(--palette-gray-600), var(--palette-gray-500));
+
+	/* Accent is for selected/current states; secondary is for hover and supporting interactions. */
 	--color-accent: light-dark(var(--palette-cobalt-600), var(--palette-cobalt-450));
 	--color-on-accent: light-dark(var(--palette-white), var(--palette-black));
 	--color-secondary: light-dark(var(--palette-teal-600), var(--palette-teal-450));
 	--color-on-secondary: light-dark(var(--palette-white), var(--palette-black));
 
+	/* Component decisions */
+	--control-height-sm: 2rem;
+	--control-height-md: 2.375rem;
+	--control-padding-x: var(--space-3);
+	--chip-padding-block: var(--space-1);
+	--chip-padding-inline: var(--space-3);
+	--card-padding: var(--space-6);
+	--card-background: var(--color-background);
+	--card-border-color: var(--color-border-strong);
+	--card-hover-border-color: var(--color-secondary);
+	--card-hover-shadow: 0 12px 30px color-mix(in srgb, var(--color-secondary) 12%, transparent);
+
 	color-scheme: light dark;
 	font-family: var(--font-family-body);
 	color: var(--color-text);
-	background: var(--color-canvas);
+	background: var(--color-background);
 	font-synthesis: none;
 }
 
@@ -95,7 +113,7 @@
 }
 
 html {
-	background: var(--color-canvas);
+	background: var(--color-background);
 }
 
 body {
@@ -104,7 +122,7 @@ body {
 	margin: 0;
 	flex-direction: column;
 	color: var(--color-text);
-	background: var(--color-canvas);
+	background: var(--color-background);
 	font-size: var(--font-size-md);
 	line-height: var(--line-height-body);
 }
@@ -131,14 +149,14 @@ button {
 
 .control {
 	display: inline-flex;
-	min-height: 2.375rem;
+	min-height: var(--control-height-md);
 	align-items: center;
 	justify-content: center;
 	gap: var(--space-2);
-	padding-inline: var(--space-3);
+	padding-inline: var(--control-padding-x);
 	border: var(--border-width) solid var(--color-border-strong);
 	color: var(--color-text);
-	background: var(--color-canvas);
+	background: var(--color-surface);
 	font-size: var(--font-size-sm);
 	font-weight: var(--font-weight-semibold);
 	line-height: 1;
@@ -180,4 +198,16 @@ h2 {
 code,
 pre {
 	font-family: var(--font-family-code);
+}
+
+@keyframes enter {
+	from {
+		opacity: 0;
+		transform: translateY(var(--enter-distance));
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }

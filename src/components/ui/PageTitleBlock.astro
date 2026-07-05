@@ -1,0 +1,26 @@
+---
+interface Props {
+	title: string;
+	lead?: string;
+}
+
+const { title, lead } = Astro.props;
+---
+
+<div class="page-title-block">
+	<h1>{title}</h1>
+	{lead && <p>{lead}</p>}
+</div>
+
+<style>
+	.page-title-block {
+		display: grid;
+		gap: var(--space-4);
+		max-width: var(--container-article);
+	}
+
+	p {
+		margin: 0;
+		color: var(--color-text-muted);
+	}
+</style>

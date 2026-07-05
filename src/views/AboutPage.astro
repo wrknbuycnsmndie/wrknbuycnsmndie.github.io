@@ -1,5 +1,5 @@
 ---
-import TextPage from '../components/TextPage.astro';
+import PageTitleBlock from '../components/ui/PageTitleBlock.astro';
 import { getLocale, useTranslations } from '../i18n/utils';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
@@ -16,7 +16,16 @@ const canonicalPath = `/${lang}/about/`;
 	canonicalPath={canonicalPath}
 	pageType="AboutPage"
 >
-	<TextPage title={t('about.title')}>
-		<p>{t('about.body')}</p>
-	</TextPage>
+	<section class="about-page">
+		<PageTitleBlock title={t('about.title')} lead={t('about.body')} />
+	</section>
 </BaseLayout>
+
+<style>
+	.about-page {
+		display: grid;
+		gap: var(--space-8);
+		max-width: var(--container-page);
+		margin-inline: auto;
+	}
+</style>

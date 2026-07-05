@@ -1,14 +1,31 @@
 ---
-import TextPage from '../components/TextPage.astro';
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import PageTitleBlock from '../components/ui/PageTitleBlock.astro';
+import { getLocale, useTranslations } from '../i18n/utils';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const lang = getLangFromUrl(Astro.url);
+const lang = getLocale(Astro.currentLocale);
 const t = useTranslations(lang);
+const title = t('meta.resume.title');
+const description = t('meta.resume.description');
+const canonicalPath = `/${lang}/resume/`;
 ---
 
-<BaseLayout title={t('meta.resume.title')} description={t('meta.resume.description')}>
-	<TextPage title={t('resume.title')}>
-		<p>{t('resume.body')}</p>
-	</TextPage>
+<BaseLayout
+	title={title}
+	description={description}
+	canonicalPath={canonicalPath}
+	pageType="ProfilePage"
+>
+	<section class="resume-page">
+		<PageTitleBlock title={t('resume.title')} lead={t('resume.body')} />
+	</section>
 </BaseLayout>
+
+<style>
+	.resume-page {
+		display: grid;
+		gap: var(--space-8);
+		max-width: var(--container-page);
+		margin-inline: auto;
+	}
+</style>

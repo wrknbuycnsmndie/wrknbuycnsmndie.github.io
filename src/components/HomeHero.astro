@@ -33,18 +33,6 @@ const t = useTranslations(lang);
 		font-size: clamp(1.2rem, 1.02rem + 0.7vw, 1.55rem);
 	}
 
-	@keyframes enter {
-		from {
-			opacity: 0;
-			transform: translateY(1.125rem);
-		}
-
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
-	}
-
 	@media (prefers-reduced-motion: reduce) {
 		.home-hero {
 			animation: none;
