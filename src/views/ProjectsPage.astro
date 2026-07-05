@@ -1,9 +1,19 @@
 ---
-import TextPage from '../components/TextPage.astro';
+import type { CollectionEntry } from 'astro:content';
+import ProjectList from '../components/projects/ProjectList.astro';
+import PageTitleBlock from '../components/ui/PageTitleBlock.astro';
 import { getLocale, useTranslations } from '../i18n/utils';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const lang = getLocale(Astro.currentLocale);
+type Project = CollectionEntry<'projectsRu'> | CollectionEntry<'projectsEn'>;
+
+interface Props {
+	projects: Project[];
+	locale?: string;
+}
+
+const { projects, locale } = Astro.props;
+const lang = getLocale(locale ?? Astro.currentLocale);
 const t = useTranslations(lang);
 const title = t('meta.projects.title');
 const description = t('meta.projects.description');
@@ -16,7 +26,22 @@ const canonicalPath = `/${lang}/projects/`;
 	canonicalPath={canonicalPath}
 	pageType="CollectionPage"
 >
-	<TextPage title={t('projects.title')}>
-		<p>{t('projects.body')}</p>
-	</TextPage>
+	<section class="projects-page">
+		<PageTitleBlock title={t('projects.title')} lead={t('projects.body')} />
+
+		<ProjectList
+			projects={projects}
+			techLabel={t('projects.techLabel')}
+			linksLabel={t('projects.linksLabel')}
+		/>
+	</section>
 </BaseLayout>
+
+<style>
+	.projects-page {
+		display: grid;
+		gap: var(--space-8);
+		max-width: var(--container-page);
+		margin-inline: auto;
+	}
+</style>

@@ -1,0 +1,57 @@
+---
+import type { TechIconName } from '../../content.config';
+import ProjectTechIcon from './ProjectTechIcon.astro';
+
+interface ProjectTechStackItem {
+	name: string;
+	icon?: TechIconName;
+}
+
+interface Props {
+	items: ProjectTechStackItem[];
+	ariaLabel: string;
+}
+const { items, ariaLabel } = Astro.props;
+---
+
+{
+	items.length > 0 && (
+		<ul class="project-tech-stack" aria-label={ariaLabel}>
+			{items.map((item) => (
+				<li>
+					{item.icon && <ProjectTechIcon name={item.icon} />}
+					<span>{item.name}</span>
+				</li>
+			))}
+		</ul>
+	)
+}
+
+<style>
+	.project-tech-stack {
+		display: flex;
+		gap: var(--space-2);
+		margin: 0;
+		padding: 0;
+		overflow-x: auto;
+		list-style: none;
+		scrollbar-width: none;
+	}
+
+	.project-tech-stack::-webkit-scrollbar {
+		display: none;
+	}
+
+	.project-tech-stack li {
+		display: inline-flex;
+		flex: 0 0 auto;
+		align-items: center;
+		gap: var(--space-2);
+		padding: var(--chip-padding-block) var(--chip-padding-inline);
+		border: var(--border-width) solid var(--color-border);
+		border-radius: var(--radius-full);
+		background: var(--color-surface);
+		font-size: var(--font-size-sm);
+		white-space: nowrap;
+	}
+</style>

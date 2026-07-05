@@ -1,0 +1,68 @@
+---
+import type { TechIconName } from '../../content.config';
+
+interface Props {
+	name: TechIconName;
+}
+
+const { name } = Astro.props;
+const icons = {
+	animedotjs: '/assets/tech/animedotjs.svg',
+	astro: '/assets/tech/astro.svg',
+	bun: '/assets/tech/bun.svg',
+	c: '/assets/tech/c.svg',
+	cloudflarepages: '/assets/tech/cloudflarepages.svg',
+	deno: '/assets/tech/deno.svg',
+	docker: '/assets/tech/docker.svg',
+	dotnet: '/assets/tech/dotnet.svg',
+	eslint: '/assets/tech/eslint.svg',
+	go: '/assets/tech/go.svg',
+	gsap: '/assets/tech/gsap.svg',
+	javascript: '/assets/tech/javascript.svg',
+	langchain: '/assets/tech/langchain.svg',
+	langgraph: '/assets/tech/langgraph.svg',
+	linux: '/assets/tech/linux.svg',
+	mariadb: '/assets/tech/mariadb.svg',
+	modelcontextprotocol: '/assets/tech/modelcontextprotocol.svg',
+	mongodb: '/assets/tech/mongodb.svg',
+	nestjs: '/assets/tech/nestjs.svg',
+	nextdotjs: '/assets/tech/nextdotjs.svg',
+	nginx: '/assets/tech/nginx.svg',
+	npm: '/assets/tech/npm.svg',
+	ollama: '/assets/tech/ollama.svg',
+	oxc: '/assets/tech/oxc.svg',
+	pnpm: '/assets/tech/pnpm.svg',
+	postgresql: '/assets/tech/postgresql.svg',
+	prettier: '/assets/tech/prettier.svg',
+	prisma: '/assets/tech/prisma.svg',
+	python: '/assets/tech/python.svg',
+	react: '/assets/tech/react.svg',
+	reacthookform: '/assets/tech/reacthookform.svg',
+	reactquery: '/assets/tech/reactquery.svg',
+	redis: '/assets/tech/redis.svg',
+	redux: '/assets/tech/redux.svg',
+	rollup: '/assets/tech/rollup.svg',
+	swagger: '/assets/tech/swagger.svg',
+	tanstack: '/assets/tech/tanstack.svg',
+	threedotjs: '/assets/tech/threedotjs.svg',
+	typescript: '/assets/tech/typescript.svg',
+	vite: '/assets/tech/vite.svg',
+	vitest: '/assets/tech/vitest.svg',
+} satisfies Record<TechIconName, string>;
+---
+
+<span
+	class="project-tech-icon"
+	style={`--project-tech-icon-url: url('${icons[name]}')`}
+	aria-hidden="true"></span>
+
+<style>
+	.project-tech-icon {
+		width: 1em;
+		height: 1em;
+		flex: 0 0 auto;
+		background: currentColor;
+		mask: var(--project-tech-icon-url) center / contain no-repeat;
+		-webkit-mask: var(--project-tech-icon-url) center / contain no-repeat;
+	}
+</style>

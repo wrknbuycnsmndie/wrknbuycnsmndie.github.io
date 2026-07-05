@@ -1,0 +1,31 @@
+---
+type IconName = 'github' | 'npm' | 'external-site';
+
+interface Props {
+	name: IconName;
+}
+
+const { name } = Astro.props;
+
+const icons = {
+	github: '/assets/tech/github.svg',
+	npm: '/assets/tech/npm.svg',
+	'external-site': '/assets/globe.svg',
+} satisfies Record<IconName, string>;
+---
+
+<span
+	class="project-link-icon"
+	style={`--project-link-icon-url: url('${icons[name]}')`}
+	aria-hidden="true"></span>
+
+<style>
+	.project-link-icon {
+		width: 1em;
+		height: 1em;
+		flex: 0 0 auto;
+		background: currentColor;
+		mask: var(--project-link-icon-url) center / contain no-repeat;
+		-webkit-mask: var(--project-link-icon-url) center / contain no-repeat;
+	}
+</style>

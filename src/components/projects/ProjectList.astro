@@ -1,0 +1,35 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ProjectCard from './ProjectCard.astro';
+
+type Project = CollectionEntry<'projectsRu'> | CollectionEntry<'projectsEn'>;
+
+interface Props {
+	projects: Project[];
+	techLabel: string;
+	linksLabel: string;
+}
+
+const { projects, techLabel, linksLabel } = Astro.props;
+---
+
+<ol class="project-list">
+	{
+		projects.map((project) => (
+			<li>
+				<ProjectCard project={project} techLabel={techLabel} linksLabel={linksLabel} />
+			</li>
+		))
+	}
+</ol>
+
+<style>
+	.project-list {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+		gap: var(--space-4);
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+</style>

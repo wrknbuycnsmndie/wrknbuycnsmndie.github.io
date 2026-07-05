@@ -1,0 +1,100 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ProjectLinkIcon from './ProjectLinkIcon.astro';
+import ProjectTechStack from './ProjectTechStack.astro';
+
+type Project = CollectionEntry<'projectsRu'> | CollectionEntry<'projectsEn'>;
+
+interface Props {
+	project: Project;
+	techLabel: string;
+	linksLabel: string;
+}
+
+const { project, techLabel, linksLabel } = Astro.props;
+const { title, summary, description, tech, links } = project.data;
+---
+
+<article class="project-item">
+	<h2>{title}</h2>
+	<p class="project-summary">{summary}</p>
+	<p class="project-description">{description}</p>
+
+	<ProjectTechStack ariaLabel={techLabel} items={tech} />
+
+	<ul class="project-links" aria-label={linksLabel}>
+		{
+			links.map((link) => (
+				<li>
+					<a class="control" href={link.href}>
+						{link.icon && <ProjectLinkIcon name={link.icon} />}
+						{link.label}
+					</a>
+				</li>
+			))
+		}
+	</ul>
+</article>
+
+<style>
+	.project-item {
+		display: grid;
+		gap: var(--space-4);
+		padding: var(--card-padding);
+		border: var(--border-width) solid var(--card-border-color);
+		background: var(--card-background);
+		transition:
+			transform var(--duration-fast),
+			border-color var(--duration-fast),
+			box-shadow var(--duration-fast);
+	}
+
+	.project-item:hover {
+		transform: translateY(-2px);
+		border-color: var(--card-hover-border-color);
+		box-shadow: var(--card-hover-shadow);
+	}
+
+	h2 {
+		margin: 0;
+	}
+
+	.project-summary,
+	.project-description {
+		margin: 0;
+		color: var(--color-text-muted);
+	}
+
+	.project-summary {
+		width: fit-content;
+		padding: var(--chip-padding-block) var(--chip-padding-inline);
+		border: var(--border-width) solid var(--color-border);
+		background: color-mix(in srgb, var(--color-secondary) 10%, transparent);
+		font-size: var(--font-size-sm);
+		font-weight: var(--font-weight-semibold);
+		color: var(--color-text);
+		line-height: 1.2;
+	}
+
+	.project-description {
+		line-height: 1.65;
+	}
+
+	.project-links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-3);
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.project-links li {
+		display: flex;
+		flex: 1 1 min(100%, 10rem);
+	}
+
+	.project-links .control {
+		width: 100%;
+	}
+</style>

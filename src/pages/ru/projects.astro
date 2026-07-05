@@ -1,5 +1,10 @@
 ---
+import { getCollection } from 'astro:content';
 import ProjectsPage from '../../views/ProjectsPage.astro';
+
+const projects = (await getCollection('projectsRu')).sort(
+	(a, b) => a.data.createdAt.getTime() - b.data.createdAt.getTime(),
+);
 ---
 
-<ProjectsPage />
+<ProjectsPage projects={projects} locale="ru" />
