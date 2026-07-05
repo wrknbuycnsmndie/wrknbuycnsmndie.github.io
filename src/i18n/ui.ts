@@ -4,26 +4,45 @@ export const languages = {
 } as const;
 
 export const defaultLang = 'ru';
-export const showDefaultLang = false;
 
 export const ui = {
+	// Russian translations
 	ru: {
-		// Shared UI
+		// Site identity
+		'site.name': 'wrknbuycnsmndie',
+		'site.author': 'Антон Чапала',
+		'site.author.jobTitle': 'Fullstack-разработчик',
+		'site.description': 'Портфолио и блог fullstack-разработчика.',
+
+		// Navigation
 		'nav.home': 'Главная',
 		'nav.about': 'Обо мне',
 		'nav.projects': 'Проекты',
 		'nav.blog': 'Блог',
 		'nav.resume': 'Резюме',
 		'nav.menu': 'Меню',
+
+		// Theme
 		'theme.dark': 'Тёмная',
 		'theme.light': 'Светлая',
 		'theme.switchToDark': 'Переключить на тёмную тему',
 		'theme.switchToLight': 'Переключить на светлую тему',
 
-		// Home page
+		// Meta: pages
 		'meta.home.title': 'Антон | wrknbuycnsmndie',
 		'meta.home.description':
 			'Fullstack-разработчик. Проекты, заметки, эксперименты с AI и возможность обсудить разработку вашего проекта.',
+		'meta.about.title': 'Обо мне',
+		'meta.about.description':
+			'Разработка и поддержка веб-приложений, AI-интеграции, API, Telegram-боты и другие программные решения.',
+		'meta.projects.title': 'Проекты',
+		'meta.projects.description': 'Проекты, над которыми я работал.',
+		'meta.resume.title': 'Резюме',
+		'meta.resume.description': 'Моё резюме (спешиалли фо эчарс).',
+		'meta.blog.title': 'Блог',
+		'meta.blog.description': 'Технические заметки, мысли и наблюдения.',
+
+		// Home page
 		'home.hero.title': 'Привет, меня зовут Антон.',
 		'home.hero.lead':
 			'Я Fullstack-разработчик с основным опытом с React и Node.js и экосистемой вокруг JS/TS.',
@@ -36,54 +55,102 @@ export const ui = {
 		'home.resume.empty': 'Информация об опыте и навыках скоро появится.',
 		'home.resume.cta': 'Открыть резюме',
 		'home.posts.title': 'Блог/Заметки',
-		'home.posts.empty': 'Скоро здесь появятся технические заметки и мысли.',
+		'home.posts.body': 'Технические заметки и мысли.',
 		'home.posts.cta': 'Открыть блог',
 
 		// About page
-		'meta.about.title': 'Обо мне',
-		'meta.about.description':
-			'Разработка и поддержка веб-приложений, AI-интеграции, API, Telegram-боты и другие программные решения.',
 		'about.title': 'Обо мне',
 		'about.body':
-			'Меня зовут Антон. Я занимаюсь fullstack-разработкой: создаю веб-приложения, backend-сервисы, API, Telegram-ботов и AI-интеграции. Открыт к новым проектам, интересным задачам и техническим обсуждениям.',
+			'Здесь разместятся несколько блоков обо мне, пока - в процессе генерации идеи',
 
 		// Projects page
-		'meta.projects.title': 'Проекты',
-		'meta.projects.description': 'Проекты, над которыми я работал.',
 		'projects.title': 'Проекты',
-		'projects.body': 'Здесь будут собраны проекты, кейсы и экспериментальные работы.',
+		'projects.body': 'Подборка проектов, пакетов и различных экспериментов.',
+		'projects.techLabel': 'Технологии',
+		'projects.linksLabel': 'Ссылки проекта',
 
 		// Resume page
-		'meta.resume.title': 'Резюме',
-		'meta.resume.description': 'Моё резюме (спешиалли фо эчарс).',
 		'resume.title': 'Резюме',
 		'resume.body':
 			'Здесь появится краткое резюме с опытом, навыками и ключевыми направлениями работы.',
 
-		// Blog page
-		'meta.blog.title': 'Блог',
-		'meta.blog.description': 'Технические заметки, мысли и наблюдения.',
+		// Blog: page
 		'blog.title': 'Блог',
-		'blog.body': 'Здесь будут публиковаться технические заметки, разборы и мысли по разработке.',
+		'blog.body': 'Технические заметки, разборы и различные мысли.',
+
+		// Blog: search
+		'blog.search.input': 'Поиск',
+		'blog.search.placeholder': 'Название, тег или ключевое слово',
+		'blog.search.tags': 'Тег',
+		'blog.search.allTags': 'Все теги',
+		'blog.search.sort': 'Сортировка',
+		'blog.search.newest': 'Сначала новые',
+		'blog.search.oldest': 'Сначала старые',
+		'blog.search.results': 'Найдено',
+		'blog.search.clear': 'Сбросить',
+		'blog.search.empty': 'Посты не найдены.',
+		'blog.search.items': 'постов',
+
+		// Blog: tags
+		'blog.tags.all': 'Все посты',
+		'blog.tags.more': 'Все теги',
+		'blog.tags.current': 'Текущий тег',
+		'blog.tags.posts': 'постов',
+		'blog.tags.pageTitle': 'Посты с тегом',
+		'blog.tags.pageDescription': 'Посты с тегом',
+
+		// Blog: pagination
+		'blog.pagination.previous': 'Назад',
+		'blog.pagination.next': 'Вперёд',
+		'blog.pagination.first': 'Первая',
+		'blog.pagination.last': 'Последняя',
+		'blog.pagination.page': 'Страница',
+		'blog.pagination.of': 'из',
+
+		// Blog: code blocks
+		'blog.code.copy': 'Копировать',
+		'blog.code.copied': 'Скопировано',
+		'blog.code.failed': 'Ошибка',
+		'blog.code.copyAria': 'Скопировать код',
 	},
 
+	// English translations
 	en: {
-		// Shared UI
+		// Site identity
+		'site.name': 'wrknbuycnsmndie',
+		'site.author': 'Anton Chapala',
+		'site.author.jobTitle': 'Full-stack developer',
+		'site.description': 'Portfolio and blog of full-stack developer.',
+
+		// Navigation
 		'nav.home': 'Home',
 		'nav.about': 'About',
 		'nav.projects': 'Projects',
 		'nav.blog': 'Blog',
 		'nav.resume': 'Resume',
 		'nav.menu': 'Menu',
+
+		// Theme
 		'theme.dark': 'Dark',
 		'theme.light': 'Light',
 		'theme.switchToDark': 'Switch to dark mode',
 		'theme.switchToLight': 'Switch to light mode',
 
-		// Home page
+		// Meta: pages
 		'meta.home.title': 'Anton | wrknbuycnsmndie',
 		'meta.home.description':
 			'Full-stack developer. Projects, notes, AI experiments, and a place to discuss your software project.',
+		'meta.about.title': 'About',
+		'meta.about.description':
+			'Web application development, AI integrations, APIs, Telegram bots, maintenance, and other software solutions.',
+		'meta.projects.title': 'Projects',
+		'meta.projects.description': 'Projects I have worked on.',
+		'meta.resume.title': 'Resume',
+		'meta.resume.description': 'My resume, especially for HRs.',
+		'meta.blog.title': 'Blog',
+		'meta.blog.description': 'Technical notes, thoughts, and observations.',
+
+		// Home page
 		'home.hero.title': "Hi, I'm Anton.",
 		'home.hero.lead':
 			'I am a full-stack developer focused on React, Node.js, and the JS/TS ecosystem around them.',
@@ -96,34 +163,62 @@ export const ui = {
 		'home.resume.empty': 'My experience and skills will be available soon.',
 		'home.resume.cta': 'Open resume',
 		'home.posts.title': 'Posts',
-		'home.posts.empty': 'Technical notes and thoughts will appear here soon.',
+		'home.posts.body': 'Technical notes and thoughts',
 		'home.posts.cta': 'Open blog',
 
 		// About page
-		'meta.about.title': 'About',
-		'meta.about.description':
-			'Web application development, AI integrations, APIs, Telegram bots, maintenance, and other software solutions.',
 		'about.title': 'About',
 		'about.body':
-			"My name is Anton. I work as a full-stack developer: I build web applications, backend services, APIs, Telegram bots, and AI integrations. I'm open to new projects, interesting tasks, and technical discussions.",
+		'A few blocks about me will be placed here, currently in the process of generating ideas.',
 
 		// Projects page
-		'meta.projects.title': 'Projects',
-		'meta.projects.description': 'Projects I have worked on.',
 		'projects.title': 'Projects',
-		'projects.body': 'Projects, case studies, and experimental work will be collected here.',
+		'projects.body': 'Collection of my projects, packages, and some experiments.',
+		'projects.techLabel': 'Technologies',
+		'projects.linksLabel': 'Project links',
 
 		// Resume page
-		'meta.resume.title': 'Resume',
-		'meta.resume.description': 'My resume, especially for HRs.',
 		'resume.title': 'Resume',
 		'resume.body':
 			'A concise resume with experience, skills, and core areas of work will appear here.',
 
-		// Blog page
-		'meta.blog.title': 'Blog',
-		'meta.blog.description': 'Technical notes, thoughts, and observations.',
+		// Blog: page
 		'blog.title': 'Blog',
-		'blog.body': 'Technical notes, breakdowns, and development thoughts will be published here.',
+		'blog.body': 'Technical notes, breakdowns, and different thoughts.',
+
+		// Blog: search
+		'blog.search.input': 'Search',
+		'blog.search.placeholder': 'Title, tag, or keyword',
+		'blog.search.tags': 'Tag',
+		'blog.search.allTags': 'All tags',
+		'blog.search.sort': 'Sort',
+		'blog.search.newest': 'Newest first',
+		'blog.search.oldest': 'Oldest first',
+		'blog.search.results': 'Found',
+		'blog.search.clear': 'Reset',
+		'blog.search.empty': 'No posts found.',
+		'blog.search.items': 'posts',
+
+		// Blog: tags
+		'blog.tags.all': 'All posts',
+		'blog.tags.more': 'All tags',
+		'blog.tags.current': 'Current tag',
+		'blog.tags.posts': 'posts',
+		'blog.tags.pageTitle': 'Posts tagged',
+		'blog.tags.pageDescription': 'Posts tagged',
+
+		// Blog: pagination
+		'blog.pagination.previous': 'Previous',
+		'blog.pagination.next': 'Next',
+		'blog.pagination.first': 'First',
+		'blog.pagination.last': 'Last',
+		'blog.pagination.page': 'Page',
+		'blog.pagination.of': 'of',
+
+		// Blog: code blocks
+		'blog.code.copy': 'Copy',
+		'blog.code.copied': 'Copied',
+		'blog.code.failed': 'Failed',
+		'blog.code.copyAria': 'Copy code',
 	},
 } as const;
