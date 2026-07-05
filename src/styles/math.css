@@ -1,0 +1,24 @@
+math {
+	font-style: normal;
+	font-weight: normal;
+	font-size: clamp(1.12em, 0.98em + 0.35vw, 1.24em);
+	line-height: normal;
+	text-indent: 0;
+	text-transform: none;
+	letter-spacing: normal;
+	word-wrap: normal;
+	direction: ltr;
+	font-feature-settings: 'dtls' off;
+	font-family: math, 'Cambria Math', 'STIX Two Math', 'Noto Sans Math';
+}
+
+math * {
+	border-color: currentColor;
+}
+
+math.tml-display {
+	display: block;
+	width: 100%;
+	margin-block: 0.25em;
+	font-size: clamp(1.08em, 1em + 0.75vw, 1.28em);
+}
