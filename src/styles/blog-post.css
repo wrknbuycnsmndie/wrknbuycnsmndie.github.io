@@ -1,0 +1,209 @@
+.blog-post {
+	width: min(var(--container-article), 100%);
+	margin-inline: auto;
+}
+
+.blog-post-header {
+	display: grid;
+	gap: var(--space-3);
+	margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.blog-post-date,
+.blog-post-tags-nav {
+	margin: 0;
+	font-size: var(--font-size-sm);
+	color: var(--color-text-muted);
+}
+
+.blog-post-tags-nav {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-2);
+}
+
+.blog-post-tags-nav {
+	align-items: center;
+}
+
+.blog-post-tags-nav span {
+	font-family: var(--font-family-code);
+}
+
+.blog-post-content :where(p, ul, ol, blockquote, pre, figure, table) {
+	margin: 0;
+}
+
+.blog-post-content ul,
+.blog-post-content ol {
+	padding-inline-start: 1.4em;
+}
+
+.blog-post-image {
+	display: block;
+	width: 100%;
+	margin-bottom: var(--space-8);
+	border: var(--border-width) solid var(--color-border-strong);
+}
+
+.blog-post-content {
+	display: grid;
+	gap: var(--space-5);
+	font-size: clamp(1rem, 0.94rem + 0.45vw, 1.15rem);
+	line-height: 1.75;
+	color: var(--color-text);
+}
+
+.blog-post-content :where(h2, h3, h4) {
+	margin: var(--space-8) 0 var(--space-2);
+	color: var(--color-text);
+	line-height: var(--line-height-tight);
+}
+
+.blog-post-content h2 {
+	font-size: clamp(1.35rem, 1.1rem + 0.8vw, 1.75rem);
+}
+
+.blog-post-content h3 {
+	font-size: clamp(1.1rem, 0.95rem + 0.4vw, 1.35rem);
+}
+
+.blog-post-content li + li {
+	margin-top: 0.35em;
+}
+
+.blog-post-content a {
+	text-decoration-thickness: 1px;
+}
+
+.blog-post-content blockquote {
+	padding-inline-start: var(--space-4);
+	border-inline-start: var(--border-width-strong) solid var(--color-secondary);
+	color: var(--color-text);
+}
+
+.blog-post-content blockquote > * + * {
+	margin-top: var(--space-4);
+}
+
+.blog-post-content :where(code, pre) {
+	font-family: var(--font-family-code);
+}
+
+.blog-post-content :where(code):not(pre code) {
+	padding: 0.12em 0.35em;
+	border: var(--border-width) solid var(--color-border);
+	background: color-mix(in oklab, var(--color-surface) 92%, var(--color-border));
+	font-size: 0.92em;
+}
+
+.blog-post-content .code-shell {
+	display: flex;
+	flex-direction: column;
+	border: var(--border-width) solid var(--color-border);
+	background: color-mix(in oklab, var(--color-surface) 96%, var(--color-border));
+	color: var(--color-text);
+}
+
+.blog-post-content .code-shell-bar {
+	display: flex;
+	order: -1;
+	min-height: var(--control-height-sm);
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-3);
+	padding: 0.45rem var(--space-3);
+	border-bottom: var(--border-width) solid var(--color-border);
+	font-size: 0.75rem;
+	line-height: 1;
+}
+
+.blog-post-content .code-shell-lang {
+	overflow: hidden;
+	font-family: var(--font-family-code);
+	letter-spacing: 0.08em;
+	text-overflow: ellipsis;
+	text-transform: uppercase;
+	white-space: nowrap;
+	color: var(--color-text-muted);
+}
+
+.blog-post-content .code-shell-copy {
+	min-width: 5.5rem;
+	padding: 0.25rem 0.55rem;
+	border: var(--border-width) solid var(--color-border);
+	background: var(--color-surface);
+	font: inherit;
+	color: var(--color-text-muted);
+	line-height: 1;
+	text-align: center;
+}
+
+.blog-post-content .code-shell-copy:hover,
+.blog-post-content .code-shell-copy[data-state='copied'] {
+	border-color: var(--color-secondary);
+	color: var(--color-text);
+}
+
+.blog-post-content .code-shell-copy[data-state='failed'] {
+	border-color: var(--color-border-strong);
+	color: var(--color-text);
+}
+
+.blog-post-content .code-shell pre {
+	overflow-x: auto;
+	margin: 0;
+	padding: var(--space-4);
+	border: 0;
+	background: transparent;
+	font-size: 0.9rem;
+	line-height: 1.65;
+	tab-size: 2;
+}
+
+.blog-post-content hr {
+	width: 100%;
+	border: 0;
+	border-top: 1px solid var(--color-border-strong);
+	margin-block: 0;
+}
+
+.blog-post-content img,
+.blog-post-content video,
+.blog-post-content iframe {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+.blog-post-content table {
+	display: block;
+	overflow-x: auto;
+	border-collapse: collapse;
+}
+
+.blog-post-content th,
+.blog-post-content td {
+	padding: 0.6em 0.8em;
+	border: var(--border-width) solid var(--color-border);
+	text-align: start;
+}
+
+@media (max-width: 37.5rem) {
+	.blog-post-content {
+		font-size: 1rem;
+		line-height: 1.72;
+	}
+
+	.blog-post-content :is(h2, h3, h4) {
+		margin-top: var(--space-6);
+	}
+
+	.blog-post-content .code-shell-bar {
+		padding-inline: var(--space-2);
+	}
+
+	.blog-post-content .code-shell pre {
+		padding: var(--space-3);
+	}
+}

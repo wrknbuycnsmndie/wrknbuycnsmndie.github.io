@@ -62,13 +62,13 @@ const hasPagination = lastPage > 1;
 
 	.pagination-link {
 		display: inline-flex;
-		min-height: 2rem;
+		min-height: var(--control-height-sm);
 		align-items: center;
 		justify-content: center;
-		padding-inline: var(--space-3);
+		padding-inline: var(--control-padding-x);
 		border: var(--border-width) solid var(--color-border);
 		color: inherit;
-		background: var(--color-canvas);
+		background: var(--color-surface);
 		text-decoration: none;
 	}
 
@@ -124,7 +124,7 @@ const hasPagination = lastPage > 1;
 		}
 
 		.pagination-link {
-			min-height: 2rem;
+			min-height: var(--control-height-sm);
 			padding-inline: var(--space-2);
 			font-size: 0.75rem;
 		}

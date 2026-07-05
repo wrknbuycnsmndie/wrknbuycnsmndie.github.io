@@ -1,3 +1,4 @@
+import { getRelativeLocaleUrl } from 'astro:i18n';
 import { locales, useTranslations, type Locale } from '../i18n/utils';
 
 export type JsonLdPrimitive = string | number | boolean | null;
@@ -11,6 +12,13 @@ export type PageSchemaType = 'WebPage' | 'AboutPage' | 'CollectionPage' | 'Profi
 export interface TagSummary {
 	name: string;
 	count: number;
+}
+
+interface BlogListPagePost {
+	id: string;
+	data: {
+		title: string;
+	};
 }
 
 function siteUrl() {
@@ -35,6 +43,21 @@ function siteMeta(locale: Locale) {
 
 export function absoluteUrl(pathOrUrl: string | URL) {
 	return new URL(pathOrUrl, siteUrl()).href;
+}
+
+export function getCanonicalPath(pathname: string) {
+	return pathname === '/' ? '/' : pathname.endsWith('/') ? pathname : `${pathname}/`;
+}
+
+export function definedTermAbout(term: string | undefined, url: string): JsonLdObject | undefined {
+	if (!term) return undefined;
+
+	return {
+		'@type': 'DefinedTerm',
+		name: term,
+		termCode: term,
+		url,
+	};
 }
 
 export function jsonLdNodes(data: JsonLdInput): JsonLdObject[] {
@@ -160,6 +183,30 @@ export function blogListSchema(args: {
 			})),
 		},
 	];
+}
+
+export function blogListPageSchema(args: {
+	url: string;
+	listTitle: string;
+	listDescription: string;
+	locale: Locale;
+	posts: BlogListPagePost[];
+}): JsonLdObject[] {
+	const t = useTranslations(args.locale);
+
+	return blogListSchema({
+		url: args.url,
+		blogUrl: absoluteUrl(getRelativeLocaleUrl(args.locale, '/blog/')),
+		title: t('blog.title'),
+		description: t('meta.blog.description'),
+		listTitle: args.listTitle,
+		listDescription: args.listDescription,
+		locale: args.locale,
+		posts: args.posts.map((post) => ({
+			url: absoluteUrl(getRelativeLocaleUrl(args.locale, `/blog/${post.id}/`)),
+			title: post.data.title,
+		})),
+	});
 }
 
 export function blogPostSchema(args: {

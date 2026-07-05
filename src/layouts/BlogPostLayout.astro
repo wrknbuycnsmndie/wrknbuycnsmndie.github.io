@@ -1,0 +1,129 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import BaseLayout from './BaseLayout.astro';
+import TagList from '../components/ui/TagList.astro';
+import '../styles/blog-post.css';
+import '../styles/math.css';
+import { getLocale, useTranslations } from '../i18n/utils';
+import { absoluteUrl, blogPostSchema } from '../lib/seo';
+
+interface Props {
+	title: string;
+	description: string;
+	createdAt: Date;
+	updatedAt?: Date;
+	tags?: string[];
+	ogImage?: string;
+	ogImageAlt?: string;
+	seoTitle?: string;
+	canonicalPath?: string;
+	alternateUrls?: Partial<Record<'ru' | 'en', string>>;
+}
+
+const {
+	title,
+	description,
+	createdAt,
+	updatedAt,
+	tags = [],
+	ogImage,
+	ogImageAlt,
+	seoTitle,
+	canonicalPath = Astro.url.pathname,
+	alternateUrls,
+} = Astro.props;
+const lang = getLocale(Astro.currentLocale);
+const t = useTranslations(lang);
+const pageTitle = seoTitle ?? title;
+const formatter = new Intl.DateTimeFormat(lang, { dateStyle: 'long' });
+const published = createdAt.toISOString();
+const modified = updatedAt?.toISOString();
+const articleImage = ogImage ? new URL(ogImage, Astro.site).href : undefined;
+const imageAlt = ogImageAlt ?? title;
+const tagsLabel = lang === 'ru' ? 'Теги' : 'Tags';
+const updatedLabel = lang === 'ru' ? 'обновлено' : 'updated';
+const canonicalUrl = absoluteUrl(canonicalPath);
+
+const jsonLd = blogPostSchema({
+	url: canonicalUrl,
+	title: pageTitle,
+	description,
+	createdAt,
+	updatedAt,
+	tags,
+	image: ogImage,
+	imageAlt,
+	locale: lang,
+});
+---
+
+<BaseLayout
+	title={pageTitle}
+	description={description}
+	ogImage={ogImage}
+	ogImageAlt={imageAlt}
+	ogType="article"
+	canonicalPath={canonicalPath}
+	alternateUrls={alternateUrls}
+	keywords={tags}
+	mainEntity={{ '@id': `${canonicalUrl}#blogposting` }}
+	jsonLd={jsonLd}
+>
+	<Fragment slot="head">
+		<meta property="article:published_time" content={published} />
+		{modified && <meta property="article:modified_time" content={modified} />}
+		{tags.map((tag) => <meta property="article:tag" content={tag} />)}
+	</Fragment>
+
+	<article class="blog-post">
+		<header class="blog-post-header">
+			<p class="blog-post-date">
+				<time datetime={published}>{formatter.format(createdAt)}</time>
+				{
+					modified && (
+						<span>
+							{' '}
+							· {updatedLabel} {formatter.format(updatedAt)}
+						</span>
+					)
+				}
+			</p>
+			<h1>{title}</h1>
+			{
+				tags.length > 0 && (
+					<nav class="blog-post-tags-nav" aria-label={tagsLabel}>
+						<span>{tagsLabel}</span>
+						<TagList
+							items={tags.map((tag) => ({
+								label: `#${tag}`,
+								href: getRelativeLocaleUrl(lang, `/blog/tags/${tag}/`),
+							}))}
+						/>
+					</nav>
+				)
+			}
+		</header>
+
+		{
+			articleImage && (
+				<img class="blog-post-image" src={articleImage} alt={imageAlt} loading="eager" />
+			)
+		}
+
+		<div
+			class="blog-post-content"
+			data-code-copy={t('blog.code.copy')}
+			data-code-copied={t('blog.code.copied')}
+			data-code-failed={t('blog.code.failed')}
+			data-code-copy-aria={t('blog.code.copyAria')}
+		>
+			<slot />
+		</div>
+	</article>
+
+	<script>
+		import { initBlogCodeBlocks } from '../lib/blog/blog-code-blocks';
+
+		initBlogCodeBlocks();
+	</script>
+</BaseLayout>

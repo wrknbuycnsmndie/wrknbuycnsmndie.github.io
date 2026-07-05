@@ -62,13 +62,13 @@ const tagHref = (tag: string) => getRelativeLocaleUrl(locale, `/blog/tags/${tag}
 	.tag-more summary {
 		display: inline-flex;
 		flex: 0 0 auto;
-		min-height: 2rem;
+		min-height: var(--control-height-sm);
 		align-items: center;
 		gap: var(--space-2);
-		padding: var(--space-1) var(--space-3);
+		padding: var(--chip-padding-block) var(--chip-padding-inline);
 		border: var(--border-width) solid var(--color-border);
 		color: var(--color-text-muted);
-		background: var(--color-canvas);
+		background: var(--color-surface);
 		font-size: var(--font-size-sm);
 		line-height: 1.3;
 		text-decoration: none;
@@ -127,7 +127,7 @@ const tagHref = (tag: string) => getRelativeLocaleUrl(locale, `/blog/tags/${tag}
 		margin-block-start: var(--space-2);
 		padding: var(--space-3);
 		border: var(--border-width) solid var(--color-border-strong);
-		background: var(--color-canvas);
+		background: var(--color-surface);
 	}
 
 	.tag-more[open] + .tag-more-list {
@@ -137,7 +137,7 @@ const tagHref = (tag: string) => getRelativeLocaleUrl(locale, `/blog/tags/${tag}
 	@media (max-width: 37.5rem) {
 		.tag-chip,
 		.tag-more summary {
-			min-height: 2rem;
+			min-height: var(--control-height-sm);
 			padding-inline: var(--space-2);
 			font-size: 0.75rem;
 		}
