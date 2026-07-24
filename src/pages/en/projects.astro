@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import ProjectsPage from '../../views/ProjectsPage.astro';
 
 const projects = (await getCollection('projectsEn')).sort(
-	(a, b) => a.data.createdAt.getTime() - b.data.createdAt.getTime(),
+	(a, b) => b.data.createdAt.getTime() - a.data.createdAt.getTime(),
 );
 ---
 
