@@ -2,7 +2,7 @@
 title: better-qr
 summary: npm package
 description: A lightweight QR-code generation library with no external dependencies. It is implemented in strict accordance with the ISO/IEC 18004 standard and uses the Reed-Solomon error correction algorithm.
-createdAt: 2025-02-01
+createdAt: 2026-04-11
 tech:
   - name: TypeScript
     icon: typescript

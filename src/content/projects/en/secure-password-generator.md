@@ -1,8 +1,8 @@
 ---
-title: Sec-Pass-Gen
+title: SecPassGen
 summary: Password generator
 description: A static password generator website built with Astro and TypeScript. It is hosted on GitHub Pages, has a simple and intuitive interface, and was conceptually inspired by the LastPass generator.
-createdAt: 2025-01-01
+createdAt: 2025-07-22
 tech:
   - name: Astro
     icon: astro

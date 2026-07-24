@@ -2,7 +2,7 @@
 title: better-qr
 summary: NPM пакет
 description: Легковесная библиотека для генерации QR-кодов без внешних зависимостей. Реализована в строгом соответствии со стандартом ISO/IEC 18004 и использует алгоритм коррекции ошибок Рида-Соломона.
-createdAt: 2025-02-01
+createdAt: 2026-04-11
 tech:
   - name: TypeScript
     icon: typescript

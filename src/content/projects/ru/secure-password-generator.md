@@ -1,8 +1,8 @@
 ---
-title: Sec-Pass-Gen
+title: SecPassGen
 summary: Генератор паролей
 description: Статичный сайт для генерации паролей, созданный с использованием Astro и TypeScript. Хостится на GitHub Pages, имеет простой, интуитивно понятный интерфейс. Идейно вдохновлён генератором от LastPass.
-createdAt: 2025-01-01
+createdAt: 2025-07-22
 tech:
   - name: Astro
     icon: astro
