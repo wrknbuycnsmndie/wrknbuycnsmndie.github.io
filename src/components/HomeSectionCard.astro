@@ -1,0 +1,77 @@
+---
+interface Props {
+	id: string;
+	title: string;
+	body: string;
+	href: string;
+	hasSeparator?: boolean;
+}
+
+const { id, title, body, href, hasSeparator = false } = Astro.props;
+---
+
+<a id={id} class:list={['home-section', { 'home-section-separated': hasSeparator }]} href={href}>
+	<h2>{title}</h2>
+	<p class="description">{body}</p>
+</a>
+
+<style>
+	.home-section {
+		display: flex;
+		min-height: 13rem;
+		padding: var(--space-5);
+		flex-direction: column;
+		color: inherit;
+		text-decoration: none;
+		transition:
+			background-color var(--duration-fast),
+			color var(--duration-fast),
+			transform var(--duration-fast);
+	}
+
+	.home-section-separated {
+		border-left: var(--border-width) solid var(--color-border-strong);
+	}
+
+	.home-section:hover {
+		background: var(--color-secondary);
+		color: var(--color-on-secondary);
+	}
+
+	.home-section:hover .description {
+		color: inherit;
+	}
+
+	.home-section:active {
+		transform: translateY(1px);
+	}
+
+	.home-section:focus-visible {
+		outline: var(--border-width-strong) solid var(--color-secondary);
+		outline-offset: calc(var(--border-width-strong) * -1);
+	}
+
+	.description {
+		max-width: 28rem;
+		margin: var(--space-5) 0 0;
+		color: var(--color-text-muted);
+		font-size: var(--font-size-sm);
+	}
+
+	h2 {
+		margin: 0;
+		font-size: clamp(1.75rem, 3vw, 2.75rem);
+		line-height: var(--line-height-tight);
+	}
+
+	@media (max-width: 50rem) {
+		.home-section {
+			min-height: 10rem;
+		}
+
+		.home-section-separated {
+			border-top: var(--border-width) solid var(--color-border-strong);
+			border-left: 0;
+		}
+	}
+</style>

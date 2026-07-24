@@ -49,19 +49,18 @@ export const ui = {
 		'home.hero.body':
 			'Здесь я буду делиться своими проектами, экспериментами и различными мыслями в блоге. Если вам нужна помощь с разработкой, поддержкой или развитием продукта, я буду рад обсудить задачу/фуллтайм работу.',
 		'home.projects.title': 'Проекты',
-		'home.projects.empty': 'Скоро здесь появятся проекты, над которыми я работал.',
+		'home.projects.empty': 'Коммерческие проекты, пет-проекты, пакеты и библиотеки.',
 		'home.projects.cta': 'Открыть проекты',
 		'home.resume.title': 'Резюме',
-		'home.resume.empty': 'Информация об опыте и навыках скоро появится.',
+		'home.resume.empty': 'Эспешиалли фо эй чарс или потенциальных будущих коллег.',
 		'home.resume.cta': 'Открыть резюме',
 		'home.posts.title': 'Блог/Заметки',
-		'home.posts.body': 'Технические заметки и мысли.',
+		'home.posts.body': 'Технические заметки, разборы и мои мысли о разработке.',
 		'home.posts.cta': 'Открыть блог',
 
 		// About page
 		'about.title': 'Обо мне',
-		'about.body':
-			'Здесь разместятся несколько блоков обо мне, пока - в процессе генерации идеи',
+		'about.body': 'Здесь разместятся несколько блоков обо мне, пока - в процессе генерации идеи',
 
 		// Projects page
 		'projects.title': 'Проекты',
@@ -157,19 +156,19 @@ export const ui = {
 		'home.hero.body':
 			'I will share my projects, experiments, and different thoughts on the blog here. If you need help building, maintaining, or improving a product, I would be happy to discuss the task or full-time work.',
 		'home.projects.title': 'Projects',
-		'home.projects.empty': 'Projects I have worked on will appear here soon.',
+		'home.projects.empty': 'Commercial projects, pet-projects, packages, and libraries.',
 		'home.projects.cta': 'Open projects',
 		'home.resume.title': 'Resume',
-		'home.resume.empty': 'My experience and skills will be available soon.',
+		'home.resume.empty': 'Especially for HRs and potential future colleagues.',
 		'home.resume.cta': 'Open resume',
 		'home.posts.title': 'Posts',
-		'home.posts.body': 'Technical notes and thoughts',
+		'home.posts.body': 'Technical notes, breakdowns, and my thoughts on software development.',
 		'home.posts.cta': 'Open blog',
 
 		// About page
 		'about.title': 'About',
 		'about.body':
-		'A few blocks about me will be placed here, currently in the process of generating ideas.',
+			'A few blocks about me will be placed here, currently in the process of generating ideas.',
 
 		// Projects page
 		'projects.title': 'Projects',

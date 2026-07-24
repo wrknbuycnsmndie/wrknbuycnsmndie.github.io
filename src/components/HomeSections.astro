@@ -1,6 +1,7 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { getLocale, useTranslations } from '../i18n/utils';
+import HomeSectionCard from './HomeSectionCard.astro';
 
 const lang = getLocale(Astro.currentLocale);
 const t = useTranslations(lang);
@@ -8,21 +9,18 @@ const t = useTranslations(lang);
 const sections = [
 	{
 		id: 'my-projects',
-		index: '01',
 		title: t('home.projects.title'),
 		body: t('home.projects.empty'),
 		href: getRelativeLocaleUrl(lang, '/projects/'),
 	},
 	{
 		id: 'my-resume',
-		index: '02',
 		title: t('home.resume.title'),
 		body: t('home.resume.empty'),
 		href: getRelativeLocaleUrl(lang, '/resume/'),
 	},
 	{
 		id: 'my-posts',
-		index: '03',
 		title: t('home.posts.title'),
 		body: t('home.posts.body'),
 		href: getRelativeLocaleUrl(lang, '/blog/'),
@@ -32,12 +30,8 @@ const sections = [
 
 <div class="home-sections">
 	{
-		sections.map((section) => (
-			<a id={section.id} class="home-section" href={section.href}>
-				<p class="section-index">{section.index}</p>
-				<h2>{section.title}</h2>
-				<p class="empty-state">{section.body}</p>
-			</a>
+		sections.map((section, index) => (
+			<HomeSectionCard {...section} hasSeparator={index > 0} />
 		))
 	}
 </div>
@@ -49,61 +43,6 @@ const sections = [
 		margin-top: var(--space-18);
 		border: var(--border-width) solid var(--color-border-strong);
 		animation: enter var(--duration-slow) var(--ease-out) both;
-	}
-
-	.home-section {
-		display: flex;
-		min-height: 16rem;
-		padding: var(--space-5);
-		flex-direction: column;
-		color: inherit;
-		text-decoration: none;
-		transition:
-			background-color var(--duration-fast),
-			color var(--duration-fast),
-			transform var(--duration-fast);
-	}
-
-	.home-section + .home-section {
-		border-left: var(--border-width) solid var(--color-border-strong);
-	}
-
-	.home-section:hover {
-		background: var(--color-secondary);
-		color: var(--color-on-secondary);
-	}
-
-	.home-section:hover .section-index,
-	.home-section:hover .empty-state {
-		color: inherit;
-	}
-
-	.home-section:active {
-		transform: translateY(1px);
-	}
-
-	.home-section:focus-visible {
-		outline: var(--border-width-strong) solid var(--color-secondary);
-		outline-offset: calc(var(--border-width-strong) * -1);
-	}
-
-	.section-index,
-	.empty-state {
-		margin: 0;
-		color: var(--color-text-muted);
-		font-size: var(--font-size-sm);
-	}
-
-	.section-index {
-		font-family: var(--font-family-code);
-	}
-
-	h2 {
-		margin: var(--space-4) 0 0;
-	}
-
-	.empty-state {
-		margin-top: auto;
 	}
 
 	@media (prefers-reduced-motion: reduce) {
@@ -118,13 +57,5 @@ const sections = [
 			margin-top: var(--space-12);
 		}
 
-		.home-section {
-			min-height: 12rem;
-		}
-
-		.home-section + .home-section {
-			border-top: var(--border-width) solid var(--color-border-strong);
-			border-left: 0;
-		}
 	}
 </style>
